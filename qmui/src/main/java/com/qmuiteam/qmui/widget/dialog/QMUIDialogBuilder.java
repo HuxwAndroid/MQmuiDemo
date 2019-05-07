@@ -217,7 +217,16 @@ public abstract class QMUIDialogBuilder<T extends QMUIDialogBuilder> {
         return addAction(0, str, QMUIDialogAction.ACTION_PROP_NEUTRAL, listener);
     }
 
-
+    /**
+     * 添加无图标正常类型的操作按钮并设置按钮颜色
+     *
+     * @param str      文案
+     *  @param color    颜色
+     * @param listener 点击回调事件
+     */
+    public T addAction(CharSequence str, String color ,QMUIDialogAction.ActionListener listener) {
+        return addAction(0, str, QMUIDialogAction.ACTION_PROP_NEUTRAL, listener);
+    }
     /**
      * 添加普通类型的操作按钮
      *
@@ -267,7 +276,21 @@ public abstract class QMUIDialogBuilder<T extends QMUIDialogBuilder> {
         mActions.add(action);
         return (T) this;
     }
-
+    /**
+     * 添加操作按钮
+     *
+     * @param iconRes  图标
+     * @param str      文案
+     * @param str      颜色
+     * @param prop     属性
+     * @param listener 点击回调事件
+     */
+    @SuppressWarnings("unchecked")
+    public T addAction(int iconRes, CharSequence str, String color, @QMUIDialogAction.Prop int prop, QMUIDialogAction.ActionListener listener) {
+        QMUIDialogAction action = new QMUIDialogAction(mContext, iconRes, str, color ,prop, listener);
+        mActions.add(action);
+        return (T) this;
+    }
 
     //endregion
 

@@ -20,11 +20,13 @@ package com.qmuiteam.qmui.widget.dialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.support.annotation.IntDef;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
 
+import com.qmuiteam.qmui.InitUi;
 import com.qmuiteam.qmui.R;
 import com.qmuiteam.qmui.layout.QMUIButton;
 import com.qmuiteam.qmui.util.QMUISpanHelper;
@@ -38,6 +40,8 @@ import java.lang.annotation.RetentionPolicy;
  * @date 2015-10-20
  */
 public class QMUIDialogAction {
+
+
 
     @IntDef({ACTION_PROP_NEGATIVE, ACTION_PROP_NEUTRAL, ACTION_PROP_POSITIVE})
     @Retention(RetentionPolicy.SOURCE)
@@ -54,6 +58,7 @@ public class QMUIDialogAction {
     private CharSequence mStr;
     private int mIconRes;
     private int mActionProp;
+    private  String buttonColor;
     private ActionListener mOnClickListener;
     private QMUIButton mButton;
     private boolean mIsEnabled = true;
@@ -103,7 +108,14 @@ public class QMUIDialogAction {
         mActionProp = actionProp;
         mOnClickListener = onClickListener;
     }
-
+    public QMUIDialogAction(Context context, int iconRes, CharSequence str, String color,@Prop int actionProp, ActionListener onClickListener) {
+        mContext = context;
+        mIconRes = iconRes;
+        mStr = str;
+        buttonColor = color ;
+        mActionProp = actionProp;
+        mOnClickListener = onClickListener;
+    }
     //endregion
 
 
@@ -185,10 +197,17 @@ public class QMUIDialogAction {
         button.setClickable(true);
         button.setEnabled(mIsEnabled);
 
-        if (mActionProp == ACTION_PROP_NEGATIVE) {
-            button.setTextColor(negativeTextColor);
-        } else if (mActionProp == ACTION_PROP_POSITIVE) {
-            button.setTextColor(positiveTextColor);
+        if (InitUi.getThemeColor() != null){
+            button.setTextColor(Color.parseColor(InitUi.getThemeColor()));
+        }else {
+            if (mActionProp == ACTION_PROP_NEGATIVE) {
+                button.setTextColor(negativeTextColor);
+            } else if (mActionProp == ACTION_PROP_POSITIVE) {
+                button.setTextColor(positiveTextColor);
+            }
+        }
+        if (buttonColor != null){
+            button.setTextColor(Color.parseColor(buttonColor));
         }
         return button;
     }
