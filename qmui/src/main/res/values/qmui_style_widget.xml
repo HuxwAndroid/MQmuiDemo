@@ -314,4 +314,6 @@
         <item name="android:windowExitAnimation">@anim/shrink_from_bottomleft_to_topright</item>
     </style>
 
+
+
 </resources>
